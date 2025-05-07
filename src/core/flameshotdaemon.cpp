@@ -102,7 +102,7 @@ void FlameshotDaemon::start()
         m_instance = new FlameshotDaemon();
         // Tray icon needs FlameshotDaemon::instance() to be non-null
         m_instance->initTrayIcon();
-        qApp->setQuitOnLastWindowClosed(false);
+        qApp->setQuitOnLastWindowClosed(true);
     }
 }
 
@@ -337,6 +337,12 @@ void FlameshotDaemon::initTrayIcon()
     connect(nativeFilter, &GlobalShortcutFilter::printPressed, this, [this]() {
         Flameshot::instance()->gui();
     });
+    
+    QTimer::singleShot(100, this, [this]() {
+        Flameshot::instance()->requestCapture(
+          CaptureRequest(CaptureRequest::GRAPHICAL_MODE));
+    });
+
 #endif
 }
 

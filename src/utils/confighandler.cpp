@@ -90,9 +90,8 @@ static QMap<class QString, QSharedPointer<ValueHandler>>
     OPTION("autoCloseIdleDaemon"         ,Bool               ( false         )),
 #endif
     OPTION("startupLaunch"               ,Bool               ( false         )),
-    OPTION("showStartupLaunchMessage"    ,Bool               ( true          )),
-    OPTION("showQuitPrompt"              ,Bool               ( false         )),
-    OPTION("copyURLAfterUpload"          ,Bool               ( true          )),
+    OPTION("showStartupLaunchMessage"    ,Bool               ( false          )),
+    OPTION("copyURLAfterUpload"          ,Bool               ( false          )),
     OPTION("copyPathAfterSave"           ,Bool               ( false         )),
     OPTION("antialiasingPinZoom"         ,Bool               ( true          )),
     OPTION("useJpgForClipboard"          ,Bool               ( false         )),

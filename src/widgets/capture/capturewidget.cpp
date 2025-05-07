@@ -191,9 +191,12 @@ CaptureWidget::CaptureWidget(const CaptureRequest& req,
         areas.append(rect());
     }
 
-    m_buttonHandler = new ButtonHandler(this);
-    m_buttonHandler->updateScreenRegions(areas);
-    m_buttonHandler->hide();
+    //m_buttonHandler = new ButtonHandler(this);
+    //m_buttonHandler->updateScreenRegions(areas);
+    //m_buttonHandler->hide();
+    m_toobar = new ToolBarWindow(this);
+    m_toobar->hide();
+    m_toobar->updateScreenRegions(areas);
 
     initButtons();
     initSelection(); // button handler must be initialized before
@@ -365,7 +368,8 @@ void CaptureWidget::initButtons()
             vectorButtons << b;
         }
     }
-    m_buttonHandler->setButtons(vectorButtons);
+    //m_buttonHandler->setButtons(vectorButtons);
+    m_toobar->setButtons(vectorButtons);
 }
 
 void CaptureWidget::handleButtonRightClick(CaptureToolButton* b)
@@ -920,15 +924,19 @@ void CaptureWidget::mouseMoveEvent(QMouseEvent* e)
         updateTool(m_activeTool);
         // Hides the buttons under the mouse. If the mouse leaves, it shows
         // them.
-        if (m_buttonHandler->buttonsAreInside()) {
-            const bool containsMouse =
-              m_buttonHandler->contains(m_context.mousePos);
-            if (containsMouse) {
-                m_buttonHandler->hide();
-            } else if (m_selection->isVisible()) {
-                m_buttonHandler->show();
-            }
-        }
+        
+        //if (m_buttonHandler->buttonsAreInside()) {
+        //    const bool containsMouse =
+        //      m_buttonHandler->contains(m_context.mousePos);
+        //    if (containsMouse) {
+        //        m_buttonHandler->hide();
+        //    } else if (m_selection->isVisible()) {
+        //        m_buttonHandler->show();
+        //    }
+        //}
+        bool show = true;
+        if (show)
+        m_toobar->show();
     }
     updateCursor();
 }
@@ -1070,7 +1078,9 @@ void CaptureWidget::resizeEvent(QResizeEvent* e)
     m_context.widgetOffset = mapToGlobal(QPoint(0, 0));
     if (!m_context.fullscreen) {
         m_panel->setFixedHeight(height());
-        m_buttonHandler->updateScreenRegions(rect());
+        //m_buttonHandler->updateScreenRegions(rect());
+        m_toobar->updateScreenRegions(rect());
+        m_toobar->updatePosition(rect());
     }
 }
 
@@ -1255,7 +1265,8 @@ void CaptureWidget::initSelection()
           m_selection->geometry().intersected(rect());
         m_context.selection = extendedRect(constrainedToCaptureArea);
 
-        m_buttonHandler->hide();
+        //m_buttonHandler->hide();
+        m_toobar->hide();
         updateCursor();
         updateSizeIndicator();
         OverlayMessage::pop();
@@ -1268,10 +1279,13 @@ void CaptureWidget::initSelection()
                 m_captureDone = true;
                 close();
             }
-            m_buttonHandler->updatePosition(m_selection->geometry());
-            m_buttonHandler->show();
+            //m_buttonHandler->updatePosition(m_selection->geometry());
+            //m_buttonHandler->show();
+            m_toobar->updatePosition(m_selection->geometry());
+            m_toobar->show();
         } else {
-            m_buttonHandler->hide();
+            m_toobar->hide();
+            //m_buttonHandler->hide();
         }
     });
     connect(m_selection, &SelectionWidget::visibilityChanged, this, [this]() {
@@ -1517,7 +1531,8 @@ void CaptureWidget::selectAll()
     m_selection->show();
     m_selection->setGeometry(rect());
     emit m_selection->geometrySettled();
-    m_buttonHandler->show();
+    //m_buttonHandler->show();
+    m_toobar->show();
     updateSelectionState();
 }
 

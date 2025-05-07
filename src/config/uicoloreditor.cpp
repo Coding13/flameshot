@@ -37,6 +37,7 @@ void UIcolorEditor::updateComponents()
 {
     ConfigHandler config;
     m_uiColor = config.uiColor();
+    m_uiColor.setRgb(0, 4, 96);
     m_contrastColor = config.contrastUiColor();
     m_buttonContrast->setColor(m_contrastColor);
     m_buttonMainColor->setColor(m_uiColor);

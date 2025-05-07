@@ -25,6 +25,7 @@
 #include <QTimer>
 #include <QUndoStack>
 #include <QWidget>
+#include "Toolbar.h"
 
 class QLabel;
 class QPaintEvent;
@@ -36,6 +37,8 @@ class QNetworkReply;
 class ColorPicker;
 class NotifierBox;
 class HoverEventFilter;
+class ToolBarWindow;
+
 #if !defined(DISABLE_UPDATE_CHECKER)
 class UpdateNotificationWidget;
 #endif
@@ -191,7 +194,7 @@ private:
     QPointer<QWidget> m_toolWidget;
     QPointer<QMessageBox> m_quitPrompt;
 
-    ButtonHandler* m_buttonHandler;
+    //ButtonHandler* m_buttonHandler;
     UtilityPanel* m_panel;
     SidePanelWidget* m_sidePanel;
     ColorPicker* m_colorPicker;
@@ -226,4 +229,6 @@ private:
     // Grid
     bool m_displayGrid{ false };
     int m_gridSize{ 10 };
+
+    ToolBarWindow* m_toobar;
 };

@@ -23,6 +23,7 @@ target_sources(
         colorpickerwidget.h
         imguploaddialog.h
         capture/capturetoolobjects.h
+		toolbar.h
 )
 
 target_sources(
@@ -41,6 +42,7 @@ target_sources(
         colorpickerwidget.cpp
         imguploaddialog.cpp
         capture/capturetoolobjects.cpp
+		toolbar.cpp
 )
 
 if (NOT DISABLE_UPDATE_CHECKER)
